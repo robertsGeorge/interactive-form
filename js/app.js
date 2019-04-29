@@ -18,7 +18,7 @@ $('#other-title').hide();
 
 
 
-// if 'other' role selected, show #other-title textarea, else hide 
+// if 'other' role selected, show #other-title text input, else hide 
 $('#title').on('change', function() {
   if ( $('#title').val() === 'other' ) {
     $('#other-title').show();
@@ -42,7 +42,7 @@ $('#design').on('change', function() {
   switch (  $('#design').val()  ) {
     case "Select Theme":
       $('#color option').hide(); 
-      $('option[value="Please select a T-shirt theme"]').show(); // is this line working?
+      $('#color').val('Please select a T-shirt theme');
       break;
 
     case "js puns":
@@ -50,6 +50,7 @@ $('#design').on('change', function() {
       $('option[value="cornflowerblue"]').show();
       $('option[value="darkslategrey"]').show();
       $('option[value="gold"]').show();
+      $('#color').val('cornflowerblue'); // set what option is initially selected & displayed
       break;
 
     case "heart js":
@@ -57,6 +58,7 @@ $('#design').on('change', function() {
       $('option[value="tomato"]').show();
       $('option[value="steelblue"]').show();
       $('option[value="dimgrey"]').show();
+      $('#color').val('tomato'); // set what option is initially selected & displayed
       break;
   } 
 });
