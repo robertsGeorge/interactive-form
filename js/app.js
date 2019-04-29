@@ -76,9 +76,9 @@ Activities section:
 
 // dynamically create running total display element:
 let amount = 0;
-const $totalMessage = $(`<p>Total: $${amount} </p>`);
+const $totalMessage = $(`<p>Total: $<span></span></p>`);
 $('.activities').append($totalMessage);
-$totalMessage.hide();
+// $totalMessage.hide();
 
 //disable conflicting activities' checkboxes and line-through their label's textcontent:
     // Frameworks conflicts w/ Express
@@ -89,22 +89,51 @@ $('.activities').change(function(event) {
   const express = document.querySelector('[name="express"]');
   const node = document.querySelector('[name="node"]');
 
+  
   switch (  $(event.target).attr('name')  ) {
     
     case 'all':
-      amount += 200; // amount is not updating
-      $totalMessage.toggle();
+      if ( $(event.target).prop('checked') === true ) {
+        amount += 200;
+        $('.activities span').text(`${amount}`);
+      } else {
+        amount -= 200;
+        $('.activities span').text(`${amount}`);
+      }
       break;
+
 
     case 'build-tools':
-      // code here
+      if ( $(event.target).prop('checked') === true ) {
+        amount += 100;
+        $('.activities span').text(`${amount}`);
+      } else {
+        amount -= 100;
+        $('.activities span').text(`${amount}`);
+      }
       break;
     
+
     case 'npm':
-      // code here
+      if ( $(event.target).prop('checked') === true ) {
+        amount += 100;
+        $('.activities span').text(`${amount}`);
+      } else {
+        amount -= 100;
+        $('.activities span').text(`${amount}`);
+      }
       break;
 
+
     case 'js-frameworks':
+      if ( $(event.target).prop('checked') === true ) {
+        amount += 100;
+        $('.activities span').text(`${amount}`);
+      } else {
+        amount -= 100;
+        $('.activities span').text(`${amount}`);
+      }
+
       express.toggleAttribute('disabled');
       if (express.parentElement.style.textDecorationLine === 'line-through' ) {
         express.parentElement.style.textDecorationLine = 'none';
@@ -113,7 +142,16 @@ $('.activities').change(function(event) {
       }
       break; 
     
+
     case 'express':
+      if ( $(event.target).prop('checked') === true ) {
+        amount += 100;
+        $('.activities span').text(`${amount}`);
+      } else {
+        amount -= 100;
+        $('.activities span').text(`${amount}`);
+      }
+
       frameworks.toggleAttribute('disabled');
       if (frameworks.parentElement.style.textDecorationLine === 'line-through' ) {
         frameworks.parentElement.style.textDecorationLine = 'none';
@@ -122,7 +160,16 @@ $('.activities').change(function(event) {
       }
       break;
 
+
     case 'js-libs':
+      if ( $(event.target).prop('checked') === true ) {
+        amount += 100;
+        $('.activities span').text(`${amount}`);
+      } else {
+        amount -= 100;
+        $('.activities span').text(`${amount}`);
+      }
+
       node.toggleAttribute('disabled');
       if (node.parentElement.style.textDecorationLine === 'line-through' ) {
         node.parentElement.style.textDecorationLine = 'none';
@@ -131,7 +178,16 @@ $('.activities').change(function(event) {
       }
       break;
 
+      
     case 'node':
+      if ( $(event.target).prop('checked') === true ) {
+        amount += 100;
+        $('.activities span').text(`${amount}`);
+      } else {
+        amount -= 100;
+        $('.activities span').text(`${amount}`);
+      }
+
       libs.toggleAttribute('disabled');
       if (libs.parentElement.style.textDecorationLine === 'line-through' ) {
         libs.parentElement.style.textDecorationLine = 'none';
