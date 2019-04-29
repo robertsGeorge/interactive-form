@@ -82,19 +82,28 @@ Activities section:
     // Libraries WS & Node WS
 
 $('.activities').change(function(event) {
-  
+  const frameworks = document.querySelector('[name="js-frameworks"]');
+  const libs = document.querySelector('[name="js-libs"]');
+  const express = document.querySelector('[name="express"]');
+  const node = document.querySelector('[name="node"]');
+
   switch (  $(event.target).attr('name')  ) {
     case 'js-frameworks':
-      $('[name="express"]').attr('disabled', 'true');
+      express.toggleAttribute('disabled');
+      if (express.parentElement.style.textDecorationLine === 'line-through' ) {
+        express.parentElement.style.textDecorationLine = 'none';
+      } else {
+        express.parentElement.style.textDecorationLine = 'line-through';
+      }
       break; 
     case 'express':
-      $('[name="js-frameworks"]').attr('disabled', 'true');
+      frameworks.toggleAttribute('disabled');
       break; 
     case 'js-libs':
-      $('[name="node"]').attr('disabled', 'true');
+      node.toggleAttribute('disabled');
       break; 
     case 'node':
-      $('[name="js-libs"]').attr('disabled', 'true');
+      libs.toggleAttribute('disabled');
       break; 
   }
 
@@ -103,3 +112,21 @@ $('.activities').change(function(event) {
 
 
 });
+
+
+
+
+/* switch (  $(event.target).attr('name')  ) {
+  case 'js-frameworks':
+    $('[name="express"]').attr('disabled', 'true');
+    break; 
+  case 'express':
+    $('[name="js-frameworks"]').attr('disabled', 'true');
+    break; 
+  case 'js-libs':
+    $('[name="node"]').attr('disabled', 'true');
+    break; 
+  case 'node':
+    $('[name="js-libs"]').attr('disabled', 'true');
+    break; 
+} */
