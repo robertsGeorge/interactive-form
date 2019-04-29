@@ -31,39 +31,41 @@ T-shirts section: show only colors that correspond to selected Design theme
 =============================*/
 
 // hide all color options on page load and show only message "Please select a T-Shirt theme"
-$('#color option').hide();
+// $('#color option').hide();
+
+// for exceeds expectations grade, hide the colors menu until a t-shirt theme is selected
+$('#colors-container').hide();
 
 // listen for change on #design
-  // if value = "Select Theme", hide all options
-  // if value = "js puns", hide I love JS options
+  // if value = Select Theme, hide color menu
+  // if value = js puns, hide I love JS options
   // else if value = I love JS, hide JS puns options
 $('#design').on('change', function() {
   
   switch (  $('#design').val()  ) {
     
     case "Select Theme":
-      $('#color option').hide(); 
-      $('#color').val('Please select a T-shirt theme');
+      $('#colors-container').hide();
       break;
-
     case "js puns":
+      $('#colors-container').show();
       $('#color option').hide();
       $(`
         [value="cornflowerblue"], 
         [value="darkslategrey"], 
         [value="gold"]
-      `).show();
-      $('#color').val('cornflowerblue'); // set what option is initially selected & displayed
+        `).show();
+      $('#color').val('cornflowerblue'); // set initial option displayed
       break;
-
     case "heart js":
+      $('#colors-container').show();
       $('#color option').hide();  
       $(`
         [value="tomato"],
         [value="steelblue"],
         [value="dimgrey"]
-      `).show();
-      $('#color').val('tomato'); // set what option is initially selected & displayed
+        `).show();
+      $('#color').val('tomato'); // set initial option displayed
       break;
   } 
 });
