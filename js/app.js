@@ -1,6 +1,6 @@
 
 /***
-jQuery used throughout. No plain JavaScript.
+Mostly jQuery + occasional vanilla JavaScript
 
 ***/ 
 
@@ -96,14 +96,32 @@ $('.activities').change(function(event) {
         express.parentElement.style.textDecorationLine = 'line-through';
       }
       break; 
+    
     case 'express':
       frameworks.toggleAttribute('disabled');
-      break; 
+      if (frameworks.parentElement.style.textDecorationLine === 'line-through' ) {
+        frameworks.parentElement.style.textDecorationLine = 'none';
+      } else {
+        frameworks.parentElement.style.textDecorationLine = 'line-through';
+      }
+      break;
+
     case 'js-libs':
       node.toggleAttribute('disabled');
-      break; 
+      if (node.parentElement.style.textDecorationLine === 'line-through' ) {
+        node.parentElement.style.textDecorationLine = 'none';
+      } else {
+        node.parentElement.style.textDecorationLine = 'line-through';
+      }
+      break;
+       
     case 'node':
       libs.toggleAttribute('disabled');
+      if (libs.parentElement.style.textDecorationLine === 'line-through' ) {
+        libs.parentElement.style.textDecorationLine = 'none';
+      } else {
+        libs.parentElement.style.textDecorationLine = 'line-through';
+      }
       break; 
   }
 
