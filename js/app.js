@@ -40,6 +40,7 @@ $('#color option').hide();
 $('#design').on('change', function() {
   
   switch (  $('#design').val()  ) {
+    
     case "Select Theme":
       $('#color option').hide(); 
       $('#color').val('Please select a T-shirt theme');
@@ -47,17 +48,21 @@ $('#design').on('change', function() {
 
     case "js puns":
       $('#color option').hide();
-      $('option[value="cornflowerblue"]').show();
-      $('option[value="darkslategrey"]').show();
-      $('option[value="gold"]').show();
+      $(`
+        [value="cornflowerblue"], 
+        [value="darkslategrey"], 
+        [value="gold"]
+      `).show();
       $('#color').val('cornflowerblue'); // set what option is initially selected & displayed
       break;
 
     case "heart js":
       $('#color option').hide();  
-      $('option[value="tomato"]').show();
-      $('option[value="steelblue"]').show();
-      $('option[value="dimgrey"]').show();
+      $(`
+        [value="tomato"],
+        [value="steelblue"],
+        [value="dimgrey"]
+      `).show();
       $('#color').val('tomato'); // set what option is initially selected & displayed
       break;
   } 
