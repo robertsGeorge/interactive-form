@@ -30,11 +30,9 @@ $('#title').on('change', function() {
 T-shirts section: show only colors that correspond to selected Design theme 
 =============================*/
 
-// hide all color options on page load and show only message "Please select a T-Shirt theme"
-// $('#color option').hide();
-
 // for exceeds expectations grade, hide the colors menu until a t-shirt theme is selected
 $('#colors-container').hide();
+
 
 // listen for change on #design
   // if value = Select Theme, hide color menu
@@ -68,4 +66,40 @@ $('#design').on('change', function() {
       $('#color').val('tomato'); // set initial option displayed
       break;
   } 
+});
+
+
+
+/* ===========================================
+Activities section: 
+=============================*/
+
+//disable conflicting checkboxes
+// strike-through their text
+
+/////conflicts:
+    // Frameworks WS & Express WS
+    // Libraries WS & Node WS
+
+$('.activities').change(function(event) {
+  
+  switch (  $(event.target).attr('name')  ) {
+    case 'js-frameworks':
+      $('[name="express"]').attr('disabled', 'true');
+      break; 
+    case 'express':
+      $('[name="js-frameworks"]').attr('disabled', 'true');
+      break; 
+    case 'js-libs':
+      $('[name="node"]').attr('disabled', 'true');
+      break; 
+    case 'node':
+      $('[name="js-libs"]').attr('disabled', 'true');
+      break; 
+  }
+
+  // if ( $(this).attr('name') === 'js-frameworks' ) $('[name="express"]').attr('disabled');  
+  // if ( $(this).attr('name') === 'express' ) $('[name=js-frameworks]').attr('disabled');
+
+
 });
