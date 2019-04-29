@@ -74,13 +74,15 @@ $('#design').on('change', function() {
 Activities section: 
 =============================*/
 
-//disable conflicting checkboxes
-// strike-through their text
+// dynamically create running total display element:
+let amount = 0;
+const $totalMessage = $(`<p>Total: $${amount} </p>`);
+$('.activities').append($totalMessage);
+$totalMessage.hide();
 
-/////conflicts:
-    // Frameworks WS & Express WS
-    // Libraries WS & Node WS
-
+//disable conflicting activities' checkboxes and line-through their label's textcontent:
+    // Frameworks conflicts w/ Express
+    // Libs WS conflicts w/ Node
 $('.activities').change(function(event) {
   const frameworks = document.querySelector('[name="js-frameworks"]');
   const libs = document.querySelector('[name="js-libs"]');
@@ -88,6 +90,20 @@ $('.activities').change(function(event) {
   const node = document.querySelector('[name="node"]');
 
   switch (  $(event.target).attr('name')  ) {
+    
+    case 'all':
+      amount += 200; // amount is not updating
+      $totalMessage.toggle();
+      break;
+
+    case 'build-tools':
+      // code here
+      break;
+    
+    case 'npm':
+      // code here
+      break;
+
     case 'js-frameworks':
       express.toggleAttribute('disabled');
       if (express.parentElement.style.textDecorationLine === 'line-through' ) {
@@ -114,7 +130,7 @@ $('.activities').change(function(event) {
         node.parentElement.style.textDecorationLine = 'line-through';
       }
       break;
-       
+
     case 'node':
       libs.toggleAttribute('disabled');
       if (libs.parentElement.style.textDecorationLine === 'line-through' ) {
