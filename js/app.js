@@ -5,7 +5,7 @@ jQuery used throughout. No plain JavaScript.
 ***/ 
 
 
-// "use strict";
+"use strict";
 
 // put focus on the name text input field on page load
 $(function() {
