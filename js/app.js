@@ -78,7 +78,8 @@ Activities section:
 let amount = 0;
 const $totalMessage = $(`<p>Total: $<span></span></p>`);
 $('.activities').append($totalMessage);
-// $totalMessage.hide();
+$totalMessage.hide();
+
 
 //disable conflicting activities' checkboxes and line-through their label's textcontent:
     // Frameworks conflicts w/ Express
@@ -89,6 +90,8 @@ $('.activities').change(function(event) {
   const libs = document.querySelector('[name="js-libs"]');
   const express = document.querySelector('[name="express"]');
   const node = document.querySelector('[name="node"]');
+
+  $totalMessage.show();
 
   
   switch (  $(event.target).attr('name')  ) {
@@ -136,7 +139,7 @@ $('.activities').change(function(event) {
       }
       // disable conflicting activity
       express.toggleAttribute('disabled');
-      $('[name="express"]').parent().toggleClass('js-greyed-out');
+      $('[name="express"]').parent().toggleClass('js-grey-out');
       break; 
     
 
@@ -150,7 +153,7 @@ $('.activities').change(function(event) {
       }
 
       frameworks.toggleAttribute('disabled');
-      $('[name="js-frameworks"]').parent().toggleClass('js-greyed-out');
+      $('[name="js-frameworks"]').parent().toggleClass('js-grey-out');
       break;
 
 
@@ -164,7 +167,7 @@ $('.activities').change(function(event) {
       }
 
       node.toggleAttribute('disabled');
-      $('[name="node"]').parent().toggleClass('js-greyed-out');
+      $('[name="node"]').parent().toggleClass('js-grey-out');
       break;
 
 
@@ -178,30 +181,15 @@ $('.activities').change(function(event) {
       }
 
       libs.toggleAttribute('disabled');
-      $('[name="js-libs"]').parent().toggleClass('js-greyed-out');
+      $('[name="js-libs"]').parent().toggleClass('js-grey-out');
       break; 
   }
 
-  // if ( $(this).attr('name') === 'js-frameworks' ) $('[name="express"]').attr('disabled');  
-  // if ( $(this).attr('name') === 'express' ) $('[name=js-frameworks]').attr('disabled');
-
+  // hide the running total is user deselects all activity options
+  if ( amount === 0 ) $totalMessage.hide();
+  
 
 });
 
 
 
-
-/* switch (  $(event.target).attr('name')  ) {
-  case 'js-frameworks':
-    $('[name="express"]').attr('disabled', 'true');
-    break; 
-  case 'express':
-    $('[name="js-frameworks"]').attr('disabled', 'true');
-    break; 
-  case 'js-libs':
-    $('[name="node"]').attr('disabled', 'true');
-    break; 
-  case 'node':
-    $('[name="js-libs"]').attr('disabled', 'true');
-    break; 
-} */
