@@ -192,4 +192,27 @@ $('.activities').change(function(event) {
 });
 
 
+/* ===========================================
+Payment section: 
+=============================*/
 
+// select credit card method by default on page load
+$('#payment').val('credit-card');
+// disable 'select method' option (user should not be able to submit form w/o payment method)
+$('[value="select_method"]').attr('disabled', true);
+
+// can't listen on each option element because there is no event to listen for?
+// use event delegation to respond to events on option child elements
+$('#payment').change(function() {
+  if ( $('#payment').val() === 'credit-card' ) {
+    $('#credit-card').show();
+    $('#paypal, #bitcoin').hide();
+  } else if ( $('#payment').val() === 'paypal' ) {
+    $('#paypal').show();
+    $('#credit-card, #bitcoin').hide();
+  } else if ( $('#payment').val() === 'bitcoin' ) {
+    $('#bitcoin').show();
+    $('#credit-card, #paypal').hide();
+  }
+
+});
