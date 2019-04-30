@@ -99,10 +99,10 @@ $('.activities').change(function(event) {
     case 'all':
       if ( $(event.target).prop('checked') === true ) {
         amount += 200;
-        $('.activities span').text(`${amount}`);
+        $('.activities span').text(amount);
       } else {
         amount -= 200;
-        $('.activities span').text(`${amount}`);
+        $('.activities span').text(amount);
       }
       break;
 
@@ -110,10 +110,10 @@ $('.activities').change(function(event) {
     case 'build-tools':
       if ( $(event.target).prop('checked') === true ) {
         amount += 100;
-        $('.activities span').text(`${amount}`);
+        $('.activities span').text(amount);
       } else {
         amount -= 100;
-        $('.activities span').text(`${amount}`);
+        $('.activities span').text(amount);
       }
       break;
     
@@ -121,10 +121,10 @@ $('.activities').change(function(event) {
     case 'npm':
       if ( $(event.target).prop('checked') === true ) {
         amount += 100;
-        $('.activities span').text(`${amount}`);
+        $('.activities span').text(amount);
       } else {
         amount -= 100;
-        $('.activities span').text(`${amount}`);
+        $('.activities span').text(amount);
       }
       break;
 
@@ -146,10 +146,10 @@ $('.activities').change(function(event) {
     case 'express':
       if ( $(event.target).prop('checked') === true ) {
         amount += 100;
-        $('.activities span').text(`${amount}`);
+        $('.activities span').text(amount);
       } else {
         amount -= 100;
-        $('.activities span').text(`${amount}`);
+        $('.activities span').text(amount);
       }
 
       frameworks.toggleAttribute('disabled');
@@ -160,10 +160,10 @@ $('.activities').change(function(event) {
     case 'js-libs':
       if ( $(event.target).prop('checked') === true ) {
         amount += 100;
-        $('.activities span').text(`${amount}`);
+        $('.activities span').text(amount);
       } else {
         amount -= 100;
-        $('.activities span').text(`${amount}`);
+        $('.activities span').text(amount);
       }
 
       node.toggleAttribute('disabled');
@@ -174,10 +174,10 @@ $('.activities').change(function(event) {
     case 'node':
       if ( $(event.target).prop('checked') === true ) {
         amount += 100;
-        $('.activities span').text(`${amount}`);
+        $('.activities span').text(amount);
       } else {
         amount -= 100;
-        $('.activities span').text(`${amount}`);
+        $('.activities span').text(amount);
       }
 
       libs.toggleAttribute('disabled');
