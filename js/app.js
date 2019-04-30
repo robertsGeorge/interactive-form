@@ -84,6 +84,7 @@ $('.activities').append($totalMessage);
     // Frameworks conflicts w/ Express
     // Libs WS conflicts w/ Node
 $('.activities').change(function(event) {
+  // vanilla JS selection used so can use toggleAttribute() method (not available on jQuery objects)
   const frameworks = document.querySelector('[name="js-frameworks"]');
   const libs = document.querySelector('[name="js-libs"]');
   const express = document.querySelector('[name="express"]');
@@ -133,13 +134,9 @@ $('.activities').change(function(event) {
         amount -= 100;
         $('.activities span').text(`${amount}`);
       }
-
+      // disable conflicting activity
       express.toggleAttribute('disabled');
-      if (express.parentElement.style.textDecorationLine === 'line-through' ) {
-        express.parentElement.style.textDecorationLine = 'none';
-      } else {
-        express.parentElement.style.textDecorationLine = 'line-through';
-      }
+      $('[name="express"]').parent().toggleClass('js-greyed-out');
       break; 
     
 
@@ -153,11 +150,7 @@ $('.activities').change(function(event) {
       }
 
       frameworks.toggleAttribute('disabled');
-      if (frameworks.parentElement.style.textDecorationLine === 'line-through' ) {
-        frameworks.parentElement.style.textDecorationLine = 'none';
-      } else {
-        frameworks.parentElement.style.textDecorationLine = 'line-through';
-      }
+      $('[name="js-frameworks"]').parent().toggleClass('js-greyed-out');
       break;
 
 
@@ -171,14 +164,10 @@ $('.activities').change(function(event) {
       }
 
       node.toggleAttribute('disabled');
-      if (node.parentElement.style.textDecorationLine === 'line-through' ) {
-        node.parentElement.style.textDecorationLine = 'none';
-      } else {
-        node.parentElement.style.textDecorationLine = 'line-through';
-      }
+      $('[name="node"]').parent().toggleClass('js-greyed-out');
       break;
 
-      
+
     case 'node':
       if ( $(event.target).prop('checked') === true ) {
         amount += 100;
@@ -189,11 +178,7 @@ $('.activities').change(function(event) {
       }
 
       libs.toggleAttribute('disabled');
-      if (libs.parentElement.style.textDecorationLine === 'line-through' ) {
-        libs.parentElement.style.textDecorationLine = 'none';
-      } else {
-        libs.parentElement.style.textDecorationLine = 'line-through';
-      }
+      $('[name="js-libs"]').parent().toggleClass('js-greyed-out');
       break; 
   }
 
