@@ -8,6 +8,9 @@
 	color: lightslategrey;
 }
 
+
+/***** Validation styles *****/
+
 .js-error {
 	border: 2px solid red;
 }

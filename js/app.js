@@ -231,19 +231,20 @@ Validation section:
 $('form').on('submit', function(event) {
   
   const $nameField = $('#name');
-  const $nameInput = $('#name').val();
+  const $nameValue = $nameField.val();
   const nameRegex = /\w+/;
-  const $nameErrorMessage = $(`<span class="js-error-message">Cannot be blank</span>`);
+  const $errorSpan = $(`<span class="js-error-message"></span>`);
 
-  if ( !nameRegex.test($nameInput) ) { // ***placeholder condition****
+  if ( ! nameRegex.test($nameValue) ) {
     event.preventDefault();
     $nameField.addClass('js-error');
-    $nameField.prev().after($nameErrorMessage);
+    $nameField.prev().after($errorSpan);
+    $errorSpan.text('Cannot be blank');
   }
 
   
 });
-//prevent default until validation checks pass
+
 
 // append empty span (which will have error message inserted into it)
 
