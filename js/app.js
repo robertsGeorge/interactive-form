@@ -225,14 +225,12 @@ $('#payment').change(function() {
 Validation section: 
 =============================*/
 
-// const $errorSpan = $(`<span class="js-error-message"></span>`);
-
 /* insert a span (error message placeholder) before each input (jQuery auto-loops over collection)
-      - does not work if there is no sibling before the input (e.g. with the activity checkboxes)
-*/
+except if there is no prev() sibling before the input (e.g. with the activity checkboxes) */
 $('input').prev().after(`<span class="js-error-message"></span>`);
 $('.activities legend').after(`<span class="js-error-message"></span>`);
-$('.js-error-message').hide();
+/* Hide all the spans that were just inserted */
+$('.js-error-message').hide(); 
 
 /* prevent chrome's automatic form validation */
 $('form').attr('novalidate', 'true');
@@ -252,12 +250,18 @@ $('form').on('submit', function(event) {
     }
   }
   
-  validateAndFeedback(  $('#name'),  /\w+/,  'Cannot be blank'  );
+  /* ==== Name and email field validation ==== */  
+  validateAndFeedback(  $('#name'),  /\w+/,  'Please enter a name (field cannot be blank)'  );
   validateAndFeedback(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter a valid email address'  );
 
+  /* ==== Credit Card details validation ==== */  
+  if ( $('#payment').val() === 'credit-card' ) {
+    validateAndFeedback(  $('#cc-num'),  /^\d{13,16}$/,  'Please enter a number between 13 and 16 digits long'  );
+    validateAndFeedback(  $('#zip'),  /^\d{5}$/,  'Enter a number 5 digits long'  );
+    validateAndFeedback(  $('#cvv'),  /^\d{3}$/,  'Enter a number 3 digits long'  );
+  }
 
-  /* ==== Activities validation: at least one must be checked ===== */  
-  
+  /* ==== Activities validation ==== */  
   let activitiesSelected = 0;
   /* loop over each activity checkbox and increment activitiesSelected if checked */
   $('.activities input').each(function() {
@@ -272,16 +276,6 @@ $('form').on('submit', function(event) {
   } else {
     $('.activities .js-error-message').hide().text('');
   }
-
-  /* ==== Credit Card details validation ===== */  
-
-  if ( $('#payment').val() === 'credit-card' ) {
-    validateAndFeedback(  $('#cc-num'),  /^\d{13,16}$/,  'Enter a number between 13 and 16 digits long'  );
-    validateAndFeedback(  $('#zip'),  /^\d{5}$/,  'Enter a number 5 digits long'  );
-    validateAndFeedback(  $('#cvv'),  /^\d{3}$/,  'Enter a number 3 digits long'  );
-  }
-
-  
 });
 
 
