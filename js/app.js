@@ -233,9 +233,7 @@ $('input').prev().after(`<span class="js-error-message"></span>`);
 /* prevent chrome's automatic form validation */
 $('form').attr('novalidate', 'true');
 
-
-
-/* listen for submit event on the overall form  */
+/* Form submit event handler */
 $('form').on('submit', function(event) {
   
   function validateAndFeedback($field, regex, message) {
@@ -244,15 +242,14 @@ $('form').on('submit', function(event) {
       $field.addClass('js-error');
       $field.prev().text(message);
       event.preventDefault();
+    } else {
+      $field.prev().text('');      
+      $field.removeClass('js-error');
     }
   }
   
-  /* ==== Name validation ==== */
-  // const $nameInput = $('#name');
-  // const nameRegex = /\w+/;
-  // const nameMessage = 'Cannot be blank';
   validateAndFeedback(  $('#name'),  /\w+/,  'Cannot be blank'  );
-
+  validateAndFeedback(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter a valid email address'  );
 
 
 
