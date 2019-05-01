@@ -225,23 +225,43 @@ $('#payment').change(function() {
 Validation section: 
 =============================*/
 
-// preventDefault on submit button press
+// const $errorSpan = $(`<span class="js-error-message"></span>`);
 
-// listen for submit event on the overall form
+/* insert a span (error message placeholder) before each input */
+$('input').prev().after(`<span class="js-error-message"></span>`);
+
+/* prevent chrome's automatic form validation */
+$('form').attr('novalidate', 'true');
+
+
+
+/* listen for submit event on the overall form  */
 $('form').on('submit', function(event) {
   
-  const $nameField = $('#name');
-  const $nameValue = $nameField.val();
+  
+  /* ==== Name validation ==== */
+  const $nameInput = $('#name');
+  const $nameValue = $nameInput.val();
   const nameRegex = /\w+/;
-  const $errorSpan = $(`<span class="js-error-message"></span>`);
-
+  
   if ( ! nameRegex.test($nameValue) ) {
     event.preventDefault();
-    $nameField.addClass('js-error');
-    $nameField.prev().after($errorSpan);
-    $errorSpan.text('Cannot be blank');
+    $nameInput.addClass('js-error');
+    $nameInput.prev().text('Cannot be blank');
   }
 
+  /* ==== email validation ==== */
+  /* const $emailField = $('#mail');
+  const $emailValue = $emailField.val();
+  const emailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i;
+
+  if ( ! emailRegex.test($emailValue) ) {
+    const $errorSpan = $(`<span class="js-error-message">Not a valid email address</span>`);
+    event.preventDefault();
+    $emailField.addClass('js-error');
+    $emailField.prev().after($errorSpan);
+
+  } */
   
 });
 
