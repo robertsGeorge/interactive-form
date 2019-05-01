@@ -244,7 +244,7 @@ $('form').on('submit', function(event) {
     const value = $field.val();
     if ( ! regex.test(value) ) {
       $field.addClass('js-error');
-      $field.prev().show().text(message); // add error message to span element already dynamically inserted
+      $field.prev().show().text(message); // add error message text to span element already dynamically inserted
       event.preventDefault();
     } else {
       $field.removeClass('js-error');
@@ -255,7 +255,7 @@ $('form').on('submit', function(event) {
   validateAndFeedback(  $('#name'),  /\w+/,  'Cannot be blank'  );
   validateAndFeedback(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter a valid email address'  );
 
-  
+
   /* ==== Activities validation: at least one must be checked ===== */  
   
   let activitiesSelected = 0;
@@ -273,7 +273,13 @@ $('form').on('submit', function(event) {
     $('.activities .js-error-message').hide().text('');
   }
 
+  /* ==== Credit Card details validation ===== */  
 
+  if ( $('#payment').val() === 'credit-card' ) {
+    validateAndFeedback(  $('#cc-num'),  /^\d{13,16}$/,  'Enter a number between 13 and 16 digits long'  );
+    validateAndFeedback(  $('#zip'),  /^\d{5}$/,  'Enter a number 5 digits long'  );
+    validateAndFeedback(  $('#cvv'),  /^\d{3}$/,  'Enter a number 3 digits long'  );
+  }
 
   
 });
