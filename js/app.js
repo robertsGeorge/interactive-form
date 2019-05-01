@@ -76,7 +76,7 @@ Activities section:
 
 // dynamically create running total display element:
 let amount = 0;
-const $totalMessage = $(`<p>Total: $<span></span></p>`);
+const $totalMessage = $(`<p>Total: $<span class="js-total"></span></p>`);
 $('.activities').append($totalMessage);
 $totalMessage.hide();
 
@@ -99,10 +99,10 @@ $('.activities').change(function(event) {
     case 'all':
       if ( $(event.target).prop('checked') === true ) {
         amount += 200;
-        $('.activities span').text(amount);
+        $('.activities .js-total').text(amount);
       } else {
         amount -= 200;
-        $('.activities span').text(amount);
+        $('.activities .js-total').text(amount);
       }
       break;
 
@@ -110,10 +110,10 @@ $('.activities').change(function(event) {
     case 'build-tools':
       if ( $(event.target).prop('checked') === true ) {
         amount += 100;
-        $('.activities span').text(amount);
+        $('.activities .js-total').text(amount);
       } else {
         amount -= 100;
-        $('.activities span').text(amount);
+        $('.activities .js-total').text(amount);
       }
       break;
     
@@ -121,10 +121,10 @@ $('.activities').change(function(event) {
     case 'npm':
       if ( $(event.target).prop('checked') === true ) {
         amount += 100;
-        $('.activities span').text(amount);
+        $('.activities .js-total').text(amount);
       } else {
         amount -= 100;
-        $('.activities span').text(amount);
+        $('.activities .js-total').text(amount);
       }
       break;
 
@@ -132,10 +132,10 @@ $('.activities').change(function(event) {
     case 'js-frameworks':
       if ( $(event.target).prop('checked') === true ) {
         amount += 100;
-        $('.activities span').text(`${amount}`);
+        $('.activities .js-total').text(`${amount}`);
       } else {
         amount -= 100;
-        $('.activities span').text(`${amount}`);
+        $('.activities .js-total').text(`${amount}`);
       }
       // disable conflicting activity
       express.toggleAttribute('disabled');
@@ -146,10 +146,10 @@ $('.activities').change(function(event) {
     case 'express':
       if ( $(event.target).prop('checked') === true ) {
         amount += 100;
-        $('.activities span').text(amount);
+        $('.activities .js-total').text(amount);
       } else {
         amount -= 100;
-        $('.activities span').text(amount);
+        $('.activities .js-total').text(amount);
       }
 
       frameworks.toggleAttribute('disabled');
@@ -160,10 +160,10 @@ $('.activities').change(function(event) {
     case 'js-libs':
       if ( $(event.target).prop('checked') === true ) {
         amount += 100;
-        $('.activities span').text(amount);
+        $('.activities .js-total').text(amount);
       } else {
         amount -= 100;
-        $('.activities span').text(amount);
+        $('.activities .js-total').text(amount);
       }
 
       node.toggleAttribute('disabled');
@@ -174,10 +174,10 @@ $('.activities').change(function(event) {
     case 'node':
       if ( $(event.target).prop('checked') === true ) {
         amount += 100;
-        $('.activities span').text(amount);
+        $('.activities .js-total').text(amount);
       } else {
         amount -= 100;
-        $('.activities span').text(amount);
+        $('.activities .js-total').text(amount);
       }
 
       libs.toggleAttribute('disabled');
@@ -266,7 +266,7 @@ $('form').on('submit', function(event) {
     $('.activities legend + span').text('Please select at least one activity');
     event.preventDefault();
   } else {
-    $('activities legend + span').text('');
+    $('.activities legend + span').text('');
   }
 
 
