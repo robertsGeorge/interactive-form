@@ -227,8 +227,11 @@ Validation section:
 
 // const $errorSpan = $(`<span class="js-error-message"></span>`);
 
-/* insert a span (error message placeholder) before each input */
+/* insert a span (error message placeholder) before each input (jQuery auto-loops over collection)
+      - does not work if there is no sibling before the input (e.g. with the activity checkboxes)
+*/
 $('input').prev().after(`<span class="js-error-message"></span>`);
+$('.activities legend').after(`<span class="js-error-message"></span>`);
 
 /* prevent chrome's automatic form validation */
 $('form').attr('novalidate', 'true');
@@ -240,41 +243,36 @@ $('form').on('submit', function(event) {
     const value = $field.val();
     if ( ! regex.test(value) ) {
       $field.addClass('js-error');
-      $field.prev().text(message);
+      $field.prev().text(message); // add error message to span element already dynamically inserted
       event.preventDefault();
     } else {
-      $field.prev().text('');      
       $field.removeClass('js-error');
+      $field.prev().text('');      
     }
   }
   
   validateAndFeedback(  $('#name'),  /\w+/,  'Cannot be blank'  );
   validateAndFeedback(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter a valid email address'  );
 
+  /* ==== Activities validation: at least one must be checked ===== */  
+  let activitiesSelected = 0;
+  $('.activities input').each(function() {
+    if ( $(this).prop('checked') === true ) {
+      activitiesSelected += 1;
+    }
+  });
 
-
-  /* if ( ! nameRegex.test(nameValue) ) {
+  if (activitiesSelected === 0) {
+    $('.activities legend + span').text('Please select at least one activity');
     event.preventDefault();
-    $nameInput.addClass('js-error');
-    $nameInput.prev().text('Cannot be blank');
-  } */
+  } else {
+    $('activities legend + span').text('');
+  }
 
-  /* ==== email validation ==== */
-  /* const $emailField = $('#mail');
-  const $emailValue = $emailField.val();
-  const emailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i;
 
-  if ( ! emailRegex.test($emailValue) ) {
-    const $errorSpan = $(`<span class="js-error-message">Not a valid email address</span>`);
-    event.preventDefault();
-    $emailField.addClass('js-error');
-    $emailField.prev().after($errorSpan);
 
-  } */
   
 });
 
 
-// append empty span (which will have error message inserted into it)
 
-// to error check live, need to listen for the input event

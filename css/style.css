@@ -16,7 +16,10 @@
 }
 
 .js-error-message {
+	/* display: inline-block; */
+	/* float: right; */
 	color: red;
+	/* margin-bottom: 8px; */
 }
 
 
