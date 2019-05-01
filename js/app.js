@@ -255,19 +255,22 @@ $('form').on('submit', function(event) {
   validateAndFeedback(  $('#name'),  /\w+/,  'Cannot be blank'  );
   validateAndFeedback(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter a valid email address'  );
 
+  
   /* ==== Activities validation: at least one must be checked ===== */  
+  
   let activitiesSelected = 0;
+  /* loop over each activity checkbox and increment activitiesSelected if checked */
   $('.activities input').each(function() {
     if ( $(this).prop('checked') === true ) {
       activitiesSelected += 1;
     }
   });
-
+  /* If no activites have been selected... */
   if (activitiesSelected === 0) {
-    $('.activities legend + span').show().text('Please select at least one activity');
+    $('.activities .js-error-message').show().text('Please select at least one activity');
     event.preventDefault();
   } else {
-    $('.activities legend + span').hide().text('');
+    $('.activities .js-error-message').hide().text('');
   }
 
 
