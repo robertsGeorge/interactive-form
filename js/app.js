@@ -238,17 +238,29 @@ $('form').attr('novalidate', 'true');
 /* listen for submit event on the overall form  */
 $('form').on('submit', function(event) {
   
+  function validateAndFeedback($field, regex, message) {
+    const value = $field.val();
+    if ( ! regex.test(value) ) {
+      $field.addClass('js-error');
+      $field.prev().text(message);
+      event.preventDefault();
+    }
+  }
   
   /* ==== Name validation ==== */
-  const $nameInput = $('#name');
-  const $nameValue = $nameInput.val();
-  const nameRegex = /\w+/;
-  
-  if ( ! nameRegex.test($nameValue) ) {
+  // const $nameInput = $('#name');
+  // const nameRegex = /\w+/;
+  // const nameMessage = 'Cannot be blank';
+  validateAndFeedback(  $('#name'),  /\w+/,  'Cannot be blank'  );
+
+
+
+
+  /* if ( ! nameRegex.test(nameValue) ) {
     event.preventDefault();
     $nameInput.addClass('js-error');
     $nameInput.prev().text('Cannot be blank');
-  }
+  } */
 
   /* ==== email validation ==== */
   /* const $emailField = $('#mail');
