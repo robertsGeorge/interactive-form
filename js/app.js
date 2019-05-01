@@ -232,6 +232,7 @@ Validation section:
 */
 $('input').prev().after(`<span class="js-error-message"></span>`);
 $('.activities legend').after(`<span class="js-error-message"></span>`);
+$('.js-error-message').hide();
 
 /* prevent chrome's automatic form validation */
 $('form').attr('novalidate', 'true');
@@ -243,11 +244,11 @@ $('form').on('submit', function(event) {
     const value = $field.val();
     if ( ! regex.test(value) ) {
       $field.addClass('js-error');
-      $field.prev().text(message); // add error message to span element already dynamically inserted
+      $field.prev().show().text(message); // add error message to span element already dynamically inserted
       event.preventDefault();
     } else {
       $field.removeClass('js-error');
-      $field.prev().text('');      
+      $field.prev().hide().text('');      
     }
   }
   
@@ -263,10 +264,10 @@ $('form').on('submit', function(event) {
   });
 
   if (activitiesSelected === 0) {
-    $('.activities legend + span').text('Please select at least one activity');
+    $('.activities legend + span').show().text('Please select at least one activity');
     event.preventDefault();
   } else {
-    $('.activities legend + span').text('');
+    $('.activities legend + span').hide().text('');
   }
 
 
