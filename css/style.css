@@ -8,9 +8,13 @@
 	color: lightslategrey;
 }
 
+.js-error {
+	border: 2px solid red;
+}
 
-
-
+.js-error-message {
+	color: red;
+}
 
 
 /* ================================= 

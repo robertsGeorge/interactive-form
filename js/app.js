@@ -219,3 +219,32 @@ $('#payment').change(function() {
   }
 
 });
+
+
+/* ===========================================
+Validation section: 
+=============================*/
+
+// preventDefault on submit button press
+
+// listen for submit event on the overall form
+$('form').on('submit', function(event) {
+  
+  const $nameField = $('#name');
+  const $nameInput = $('#name').val();
+  const nameRegex = /\w+/;
+  const $nameErrorMessage = $(`<span class="js-error-message">Cannot be blank</span>`);
+
+  if ( !nameRegex.test($nameInput) ) { // ***placeholder condition****
+    event.preventDefault();
+    $nameField.addClass('js-error');
+    $nameField.prev().after($nameErrorMessage);
+  }
+
+  
+});
+//prevent default until validation checks pass
+
+// append empty span (which will have error message inserted into it)
+
+// to error check live, need to listen for the input event
