@@ -272,6 +272,7 @@ function validateInRealtime($field, regex, message1, message2) {
   });
 } 
 
+/* this function must be called inside an event handler which provides the event object */
 function validateActivities() {
   let activitiesSelected = 0;
   /* loop over each activity checkbox and increment activitiesSelected if checked */
@@ -288,9 +289,6 @@ function validateActivities() {
     $('.activities .js-error-message').hide().text('');
   }
 }
-/* run validateActivities() in realtime, 
-in response to changes on children of activities fieldset */
-// $('.activities').change( validateActivities() );
 
 validateInRealtime(  $('#name'),  /\w+/,  'Please enter a name', 'Please enter a name'  );
 validateInRealtime(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address', 'Please enter a valid email address'  );
@@ -298,7 +296,11 @@ validateInRealtime(  $('#cc-num'),  /^\d{13,16}$/, 'Please enter a credit card n
 validateInRealtime(  $('#zip'),  /^\d{5}$/, 'Please enter a zip', 'Enter a number 5 digits long'  );
 validateInRealtime(  $('#cvv'),  /^\d{3}$/, 'Please enter a cvv', 'Enter a number 3 digits long'  );
 
-
+/* run validateActivities() in realtime, 
+in response to input on the activity fieldset's checkbox input elements */
+$('.activities').on('input', function(event) {
+  validateActivities();
+});
 
 /* ================== Overall form submit event handler ========================== */
 $('form').on('submit', function(event) {
