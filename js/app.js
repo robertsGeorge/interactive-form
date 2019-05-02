@@ -250,15 +250,34 @@ $('form').on('submit', function(event) {
       $field.prev().hide().text('');      
     }
   }
+
+  function validateAndConditionalFeedback($field, regex, message1, message2) {
+    const value = $field.val();
+    const test = regex.test(value);
+    if (value.length === 0) {
+      $field.addClass('js-error');
+      $field.prev().show().text(message1); // add error message text to span element already dynamically inserted
+      event.preventDefault();
+    } else if (!test) {
+      $field.addClass('js-error');
+      $field.prev().show().text(message2); // add error message text to span element already dynamically inserted
+      event.preventDefault();
+    } else if (test) {
+      $field.removeClass('js-error');
+      $field.prev().hide().text('');
+    }
+  }
+
+
   /* ==== Name and email field validation ==== */  
   validateAndFeedback(  $('#name'),  /\w+/,  'Please enter a name (field cannot be blank)'  );
-  validateAndFeedback(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter a valid email address'  );
+  validateAndConditionalFeedback(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address (field cannot be blank)', 'Please enter a valid email address'  );
 
   /* ==== Credit Card details validation ==== */  
   if ( $('#payment').val() === 'credit-card' ) {
-    validateAndFeedback(  $('#cc-num'),  /^\d{13,16}$/,  'Please enter a number between 13 and 16 digits long'  );
-    validateAndFeedback(  $('#zip'),  /^\d{5}$/,  'Enter a number 5 digits long'  );
-    validateAndFeedback(  $('#cvv'),  /^\d{3}$/,  'Enter a number 3 digits long'  );
+    validateAndConditionalFeedback(  $('#cc-num'),  /^\d{13,16}$/, 'Please enter a credit card number', 'Please enter a number between 13 and 16 digits long'  );
+    validateAndConditionalFeedback(  $('#zip'),  /^\d{5}$/, 'Please enter a zip code', 'Enter a number 5 digits long'  );
+    validateAndConditionalFeedback(  $('#cvv'),  /^\d{3}$/, 'Please enter a cvv', 'Enter a number 3 digits long'  );
   }
 
 
