@@ -272,6 +272,26 @@ function validateInRealtime($field, regex, message1, message2) {
   });
 } 
 
+function validateActivities() {
+  let activitiesSelected = 0;
+  /* loop over each activity checkbox and increment activitiesSelected if checked */
+  $('.activities input').each(function() {
+    if ( $(this).prop('checked') === true ) {
+      activitiesSelected += 1;
+    }
+  });
+  /* if no activities selected, show error message */
+  if (activitiesSelected === 0) {
+    $('.activities .js-error-message').show().text('Please select at least one activity');
+    event.preventDefault();
+  } else {
+    $('.activities .js-error-message').hide().text('');
+  }
+}
+/* run validateActivities() in realtime, 
+in response to changes on children of activities fieldset */
+// $('.activities').change( validateActivities() );
+
 validateInRealtime(  $('#name'),  /\w+/,  'Please enter a name', 'Please enter a name'  );
 validateInRealtime(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address', 'Please enter a valid email address'  );
 validateInRealtime(  $('#cc-num'),  /^\d{13,16}$/, 'Please enter a credit card number', 'Please enter a number between 13 and 16 digits long'  );
@@ -295,20 +315,7 @@ $('form').on('submit', function(event) {
   }
 
   /* ==== Activities validation ==== */  
-  let activitiesSelected = 0;
-  /* loop over each activity checkbox and increment activitiesSelected if checked */
-  $('.activities input').each(function() {
-    if ( $(this).prop('checked') === true ) {
-      activitiesSelected += 1;
-    }
-  });
-  
-  if (activitiesSelected === 0) {
-    $('.activities .js-error-message').show().text('Please select at least one activity');
-    event.preventDefault();
-  } else {
-    $('.activities .js-error-message').hide().text('');
-  }
+  validateActivities();
 });
 
 
