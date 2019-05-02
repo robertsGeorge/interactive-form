@@ -222,8 +222,8 @@ $('#payment').change(function() {
 
 
 /* ===========================================
-Validation section: 
-=============================*/
+Validation
+============================= */
 
 /* insert a span (error message placeholder) before each input (jQuery auto-loops over collection)
 except if there is no prev() sibling before the input (e.g. with the activity checkboxes) */
@@ -234,6 +234,7 @@ $('.js-error-message').hide();
 
 /* prevent chrome's automatic form validation */
 $('form').attr('novalidate', 'true');
+
 
 /* Form submit event handler */
 $('form').on('submit', function(event) {
@@ -249,7 +250,6 @@ $('form').on('submit', function(event) {
       $field.prev().hide().text('');      
     }
   }
-  
   /* ==== Name and email field validation ==== */  
   validateAndFeedback(  $('#name'),  /\w+/,  'Please enter a name (field cannot be blank)'  );
   validateAndFeedback(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter a valid email address'  );
@@ -260,6 +260,7 @@ $('form').on('submit', function(event) {
     validateAndFeedback(  $('#zip'),  /^\d{5}$/,  'Enter a number 5 digits long'  );
     validateAndFeedback(  $('#cvv'),  /^\d{3}$/,  'Enter a number 3 digits long'  );
   }
+
 
   /* ==== Activities validation ==== */  
   let activitiesSelected = 0;

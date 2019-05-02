@@ -12,13 +12,13 @@
 /***** Validation styles *****/
 
 .js-error {
-	border: 2px solid red;
+	border: 2px solid #D00;
 }
 
 .js-error-message {
 	display: inline-block;
 	margin-bottom: 10px;
-	color: red;
+	color: #D00;
 }
 
 
