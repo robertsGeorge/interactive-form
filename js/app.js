@@ -265,6 +265,20 @@ function validateAndConditionalFeedback($field, regex, message1, message2) {
   }
 }
 
+/* === Realtime input event handlers (outside of, seperate from and additional to the main form submit event handler below) === */
+function validateInRealtime($field, regex, message1, message2) {
+  $field.on('input', function() {
+    validateAndConditionalFeedback($field, regex, message1, message2);
+  });
+} 
+
+validateInRealtime(  $('#name'),  /\w+/,  'Please enter a name', 'Please enter a name'  );
+validateInRealtime(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address', 'Please enter a valid email address'  );
+validateInRealtime(  $('#cc-num'),  /^\d{13,16}$/, 'Please enter a credit card number', 'Please enter a number between 13 and 16 digits long'  );
+validateInRealtime(  $('#zip'),  /^\d{5}$/, 'Please enter a zip', 'Enter a number 5 digits long'  );
+validateInRealtime(  $('#cvv'),  /^\d{3}$/, 'Please enter a cvv', 'Enter a number 3 digits long'  );
+
+
 
 /* ================== Overall form submit event handler ========================== */
 $('form').on('submit', function(event) {
@@ -280,7 +294,6 @@ $('form').on('submit', function(event) {
     validateAndConditionalFeedback(  $('#cvv'),  /^\d{3}$/, 'Please enter a cvv', 'Enter a number 3 digits long'  );
   }
 
-
   /* ==== Activities validation ==== */  
   let activitiesSelected = 0;
   /* loop over each activity checkbox and increment activitiesSelected if checked */
@@ -289,7 +302,7 @@ $('form').on('submit', function(event) {
       activitiesSelected += 1;
     }
   });
-  /* If no activites have been selected... */
+  
   if (activitiesSelected === 0) {
     $('.activities .js-error-message').show().text('Please select at least one activity');
     event.preventDefault();
@@ -299,15 +312,5 @@ $('form').on('submit', function(event) {
 });
 
 
-/* === Realtime input event handlers (outside of, seperate from and additional to the main form submit event handler above) === */
-
-/* function validateInRealtime($field, regex, message1, message2) {
-  $field.on('input', function() {
-    validateAndConditionalFeedback($field, regex, message1, message2);
-  });
-} 
-
-validateInRealtime(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address', 'Please enter a valid email address'  );
 
 
- */
