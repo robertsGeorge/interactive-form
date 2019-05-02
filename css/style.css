@@ -21,7 +21,9 @@
 	color: #D00;
 }
 
-
+input:focus.js-error {
+	border-color: #D00;
+}
 
 /* ================================= 
   Base Element Styles
