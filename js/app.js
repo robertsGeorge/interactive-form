@@ -270,13 +270,13 @@ $('form').on('submit', function(event) {
 
 
   /* ==== Name and email field validation ==== */  
-  validateAndFeedback(  $('#name'),  /\w+/,  'Please enter a name (field cannot be blank)'  );
-  validateAndConditionalFeedback(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address (field cannot be blank)', 'Please enter a valid email address'  );
+  validateAndFeedback(  $('#name'),  /\w+/,  'Please enter a name'  );
+  validateAndConditionalFeedback(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address', 'Please enter a valid email address'  );
 
   /* ==== Credit Card details validation ==== */  
   if ( $('#payment').val() === 'credit-card' ) {
     validateAndConditionalFeedback(  $('#cc-num'),  /^\d{13,16}$/, 'Please enter a credit card number', 'Please enter a number between 13 and 16 digits long'  );
-    validateAndConditionalFeedback(  $('#zip'),  /^\d{5}$/, 'Please enter a zip code', 'Enter a number 5 digits long'  );
+    validateAndConditionalFeedback(  $('#zip'),  /^\d{5}$/, 'Please enter a zip', 'Enter a number 5 digits long'  );
     validateAndConditionalFeedback(  $('#cvv'),  /^\d{3}$/, 'Please enter a cvv', 'Enter a number 3 digits long'  );
   }
 
