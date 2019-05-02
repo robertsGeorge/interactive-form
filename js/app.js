@@ -298,5 +298,13 @@ $('form').on('submit', function(event) {
   }
 });
 
+/* Realtime input event handlers (outside of, seperate from and additional to the main form submit event handler above) */
+function validateInRealtime($field, regex, message1, message2) {
+  $field.on('input', function() {
+    validateAndConditionalFeedback($field, regex, message1, message2);
+  });
+} 
+
+validateInRealtime(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address', 'Please enter a valid email address'  );
 
 
