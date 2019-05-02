@@ -12,17 +12,18 @@
 /***** Validation styles *****/
 
 .js-error {
-	border: 2px solid #D00;
+	border: 2px solid #a14d54;
 }
 
 .js-error-message {
 	display: inline-block;
 	margin-bottom: 10px;
-	color: #D00;
+	color: #a14d54;
+	font-weight: bold;
 }
 
 input:focus.js-error {
-	border-color: #D00;
+	border-color: #a14d54;
 }
 
 /* ================================= 
@@ -40,19 +41,25 @@ button {
 }
 
 body {
-  font: 1em/1.5;
-  color: #184f68;
-	background: #accbd9;
+  font-size: 16px;
+  color: #01796f;
+	background: #01796f;
 }
 
 header {
-	text-align: center;  
+	text-align: center;
+	color: white;  
+}
+
+header span {
+	font-size: 1.3em;
 }
 
 h1 {
-	font-size: 2.5em;
+	font-size: 3.3em;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
 	margin: 0;
+	
 }
 
 a {
@@ -65,7 +72,9 @@ a {
 
 form {
 	padding: .875em 1.875em 1.875em;
-	background: #85b5ca;
+	/* background: #a1c7c4; */
+	background: #fff;
+
 }
 
 fieldset,
@@ -79,15 +88,12 @@ fieldset {
 	margin-top: 1.5em;
 }
 
-legend,
-button {
-	font-size: 1.25em;	
-}
 
 legend {
 	font-weight: 500;
-	padding-top: .5em;
-	border-top: 2px solid #679cb3;
+	font-size: 1.5em;
+	padding-top: .6em;
+	border-top: 2px solid #01796f;
 	margin-bottom: 1.125em;
 }
 
@@ -112,14 +118,14 @@ input {
 	font-size: 1em;
 	font-weight: 500;
 	padding: .8em;
-	background: #c1deeb;
-	border: 2px solid #c1deeb;
+	background: #e4f0ee;
+	border: 2px solid #e4f0ee;
 	outline: none;
 }
 
 input:focus {
 	background: #fff;
-	border-color: #5e97b0;
+	border-color: #01796f;
 	transition: border-color .4s, background-color .4s;
 }
 
@@ -131,13 +137,15 @@ input[type="radio"] {
 button {
 	color: #fff;
 	padding: .55em 1.25em;
-	background: #22627e;
+	background: #01796f;
 	margin: 1.25em 0 .5em;
 	cursor: pointer;
+	font-size: 1.35em;
+	/* font-weight: bold; */
 }
 
 button:hover {
-	background: #184c62;
+	background: #01675e;
 }
 
 /* ================================= 
