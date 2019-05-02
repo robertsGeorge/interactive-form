@@ -91,7 +91,7 @@ fieldset {
 
 legend {
 	font-weight: 500;
-	font-size: 1.5em;
+	font-size: 1.7em;
 	padding-top: .6em;
 	border-top: 2px solid #01796f;
 	margin-bottom: 1.125em;
@@ -126,7 +126,7 @@ input {
 input:focus {
 	background: #fff;
 	border-color: #01796f;
-	transition: border-color .4s, background-color .4s;
+	transition: border-color .5s, background-color .5s;
 }
 
 input[type="checkbox"],
@@ -146,6 +146,7 @@ button {
 
 button:hover {
 	background: #01675e;
+	transition: background-color .1s;
 }
 
 /* ================================= 
