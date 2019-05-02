@@ -236,39 +236,39 @@ $('.js-error-message').hide();
 $('form').attr('novalidate', 'true');
 
 
-/* Form submit event handler */
+function validateAndFeedback($field, regex, message) {
+  const value = $field.val();
+  if ( ! regex.test(value) ) {
+    $field.addClass('js-error');
+    $field.prev().show().text(message); // add error message text to span element already dynamically inserted
+    event.preventDefault();
+  } else {
+    $field.removeClass('js-error');
+    $field.prev().hide().text('');      
+  }
+}
+
+function validateAndConditionalFeedback($field, regex, message1, message2) {
+  const value = $field.val();
+  const test = regex.test(value);
+  if (value.length === 0) {
+    $field.addClass('js-error');
+    $field.prev().show().text(message1); // add error message text to span element already dynamically inserted
+    event.preventDefault();
+  } else if (!test) {
+    $field.addClass('js-error');
+    $field.prev().show().text(message2); // add error message text to span element already dynamically inserted
+    event.preventDefault();
+  } else if (test) {
+    $field.removeClass('js-error');
+    $field.prev().hide().text('');
+  }
+}
+
+
+/* ================== Overall form submit event handler ========================== */
 $('form').on('submit', function(event) {
   
-  function validateAndFeedback($field, regex, message) {
-    const value = $field.val();
-    if ( ! regex.test(value) ) {
-      $field.addClass('js-error');
-      $field.prev().show().text(message); // add error message text to span element already dynamically inserted
-      event.preventDefault();
-    } else {
-      $field.removeClass('js-error');
-      $field.prev().hide().text('');      
-    }
-  }
-
-  function validateAndConditionalFeedback($field, regex, message1, message2) {
-    const value = $field.val();
-    const test = regex.test(value);
-    if (value.length === 0) {
-      $field.addClass('js-error');
-      $field.prev().show().text(message1); // add error message text to span element already dynamically inserted
-      event.preventDefault();
-    } else if (!test) {
-      $field.addClass('js-error');
-      $field.prev().show().text(message2); // add error message text to span element already dynamically inserted
-      event.preventDefault();
-    } else if (test) {
-      $field.removeClass('js-error');
-      $field.prev().hide().text('');
-    }
-  }
-
-
   /* ==== Name and email field validation ==== */  
   validateAndFeedback(  $('#name'),  /\w+/,  'Please enter a name'  );
   validateAndConditionalFeedback(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address', 'Please enter a valid email address'  );
@@ -298,8 +298,10 @@ $('form').on('submit', function(event) {
   }
 });
 
-/* Realtime input event handlers (outside of, seperate from and additional to the main form submit event handler above) */
-function validateInRealtime($field, regex, message1, message2) {
+
+/* === Realtime input event handlers (outside of, seperate from and additional to the main form submit event handler above) === */
+
+/* function validateInRealtime($field, regex, message1, message2) {
   $field.on('input', function() {
     validateAndConditionalFeedback($field, regex, message1, message2);
   });
@@ -308,3 +310,4 @@ function validateInRealtime($field, regex, message1, message2) {
 validateInRealtime(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address', 'Please enter a valid email address'  );
 
 
+ */
