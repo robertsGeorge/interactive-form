@@ -180,35 +180,48 @@ function validateAndFeedback($field, regex, message) {
   }
 }
 /* similar to validateAndFeedback but with extra conditional message */
-function validateAndConditionalFeedback($field, regex, message1, message2) {
+function validateAndConditionalFeedback($field, regex1, message1, message2, regex2, message3) {
   const value = $field.val();
-  const test = regex.test(value);
+  const test1 = regex1.test(value);
   if (value.length === 0) {
     $field.addClass('js-error');
     $field.prev().show().text(message1); // add error message text to span element already dynamically inserted
     event.preventDefault();
-  } else if (!test) {
-    $field.addClass('js-error');
-    $field.prev().show().text(message2); // add error message text to span element already dynamically inserted
-    event.preventDefault();
-  } else if (test) {
+  } else if (!test1) {
+    if (regex2) {
+      const test2 = regex2.test(value);
+      if (test2) {
+        $field.addClass('js-error');
+        $field.prev().show().text(message3);
+        event.preventDefault();
+      } else {
+        $field.addClass('js-error');
+        $field.prev().show().text(message2);
+        event.preventDefault();
+      }
+    } else {
+      $field.addClass('js-error');
+      $field.prev().show().text(message2);
+      event.preventDefault();
+    }
+  } else if (test1) {
     $field.removeClass('js-error');
     $field.prev().hide().text('');
   }
 }
 /* Function to call validateAndConditionalFeedback in response to 
 realtime input events on the field element passed in */
-function validateInRealtime($field, regex, message1, message2) {
+function validateInRealtime($field, regex, message1, message2, regex2, message3) {
   $field.on('input', function() {
-    validateAndConditionalFeedback($field, regex, message1, message2);
+    validateAndConditionalFeedback($field, regex, message1, message2, regex2, message3);
   });
 } 
 /* validate the name, email, and credit card fields in realtime */
 validateInRealtime(  $('#name'),  /\w+/,  'Please enter a name', 'Please enter a name'  );
 validateInRealtime(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address', 'Please enter a valid email address'  );
-validateInRealtime(  $('#cc-num'),  /^\d{13,16}$/, 'Please enter a credit card number', 'Please enter a number between 13 and 16 digits long'  );
-validateInRealtime(  $('#zip'),  /^\d{5}$/, 'Please enter a zip', 'Enter a number 5 digits long'  );
-validateInRealtime(  $('#cvv'),  /^\d{3}$/, 'Please enter a cvv', 'Enter a number 3 digits long'  );
+validateInRealtime(  $('#cc-num'),  /^\d{13,16}$/, 'Please enter a credit card number', 'Please enter a number between 13 and 16 digits long', /\s+/, 'No spaces please'  );
+validateInRealtime(  $('#zip'),  /^\d{5}$/, 'Please enter a zip', 'Enter a number 5 digits long', /\s+/, 'No spaces please'  );
+validateInRealtime(  $('#cvv'),  /^\d{3}$/, 'Please enter a cvv', 'Enter a number 3 digits long', /\s+/, 'No spaces please'  );
 
 /* Function to validate that at least one activity has been checked.
 this function must be called inside an event handler which provides the event object */
@@ -244,9 +257,9 @@ $('form').on('submit', function(event) {
   validateActivities();
   /* Credit Card details validation - only if payment option selected is credit-card */  
   if ( $('#payment').val() === 'credit-card' ) {
-    validateAndConditionalFeedback(  $('#cc-num'),  /^\d{13,16}$/, 'Please enter a credit card number', 'Please enter a number between 13 and 16 digits long'  );
-    validateAndConditionalFeedback(  $('#zip'),  /^\d{5}$/, 'Please enter a zip', 'Enter a number 5 digits long'  );
-    validateAndConditionalFeedback(  $('#cvv'),  /^\d{3}$/, 'Please enter a cvv', 'Enter a number 3 digits long'  );
+    validateAndConditionalFeedback(  $('#cc-num'),  /^\d{13,16}$/, 'Please enter a credit card number', 'Please enter a number between 13 and 16 digits long', /\s+/, 'No spaces please'  );
+    validateAndConditionalFeedback(  $('#zip'),  /^\d{5}$/, 'Please enter a zip', 'Enter a number 5 digits long', /\s+/, 'No spaces please'  );
+    validateAndConditionalFeedback(  $('#cvv'),  /^\d{3}$/, 'Please enter a cvv', 'Enter a number 3 digits long', /\s+/, 'No spaces please'  );
   }
 });
 

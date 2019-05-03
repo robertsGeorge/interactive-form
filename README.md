@@ -1,7 +1,7 @@
 # Interactive Form
 With this project I learnt jQuery and Regular Expressions and applied them to build dynamic interactivity and validation into a HTML registration form. <br><br>
 Validation is applied in realtime as user input events are registered.<br><br>
-Error messages displayed update in realtime according to the error (e.g. field is blank, or entry isn't of the write length).<br><br>
+Error messages displayed update in realtime conditionally according to the error (e.g. field is blank, or entry isn't of the write length).<br><br>
 This was all coded from scratch: no in-built or automatic validation was used, and no pre-written regexs were used.
 
 
