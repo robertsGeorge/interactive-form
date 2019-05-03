@@ -57,118 +57,111 @@ Activities section:
 /* dynamically create & append total cost message
 span with class 'js-total' to hold the dynamically updated number value */
 const $totalMessage = $(`<p>Total: $<span class="js-total"></span></p>`);
-$('.activities').append($totalMessage);
-$totalMessage.hide();
+  $('.activities').append($totalMessage);
+  $totalMessage.hide();
+const $totalSpan = $('.activities .js-total');
 let total = 0;
+/* vanilla JS selection used to create the following 4 bindings 
+  so can use toggleAttribute() method (not available on jQuery objects) */
+const frameworks = document.querySelector('[name="js-frameworks"]');
+const libs = document.querySelector('[name="js-libs"]');
+const express = document.querySelector('[name="express"]');
+const node = document.querySelector('[name="node"]');
 
 /* Show and update the total as checkboxes are checked/unchecked.
     Also where activity time conflicts exist, 
     grey-out the conflicting option and disable its checkbox */
 $('.activities').change(function(event) {
-  /* vanilla JS selection used to create the following 4 bindings 
-    so can use toggleAttribute() method (not available on jQuery objects) */
-  const frameworks = document.querySelector('[name="js-frameworks"]');
-  const libs = document.querySelector('[name="js-libs"]');
-  const express = document.querySelector('[name="express"]');
-  const node = document.querySelector('[name="node"]');
-
   $totalMessage.show();
-  
+
   switch ( $(event.target).attr('name') ) {
     
     case 'all':
       if ( $(event.target).prop('checked') === true ) {
         total += 200;
-        $('.activities .js-total').text(total);
+        $totalSpan.text(total);
       } else {
         total -= 200;
-        $('.activities .js-total').text(total);
+        $totalSpan.text(total);
       }
       break;
-
 
     case 'build-tools':
       if ( $(event.target).prop('checked') === true ) {
         total += 100;
-        $('.activities .js-total').text(total);
+        $totalSpan.text(total);
       } else {
         total -= 100;
-        $('.activities .js-total').text(total);
+        $totalSpan.text(total);
       }
       break;
     
-
     case 'npm':
       if ( $(event.target).prop('checked') === true ) {
         total += 100;
-        $('.activities .js-total').text(total);
+        $totalSpan.text(total);
       } else {
         total -= 100;
-        $('.activities .js-total').text(total);
+        $totalSpan.text(total);
       }
       break;
-
 
     case 'js-frameworks':
       if ( $(event.target).prop('checked') === true ) {
         total += 100;
-        $('.activities .js-total').text(`${total}`);
+        $totalSpan.text(`${total}`);
       } else {
         total -= 100;
-        $('.activities .js-total').text(`${total}`);
+        $totalSpan.text(`${total}`);
       }
-      // disable conflicting activity
+      /* deal with conflicting activity */
       express.toggleAttribute('disabled');
-      $('[name="express"]').parent().toggleClass('js-grey-out');
+      // switch to jQuery to use its toggleClass method
+      $(express).parent().toggleClass('js-grey-out');
       break; 
     
-
     case 'express':
       if ( $(event.target).prop('checked') === true ) {
         total += 100;
-        $('.activities .js-total').text(total);
+        $totalSpan.text(total);
       } else {
         total -= 100;
-        $('.activities .js-total').text(total);
+        $totalSpan.text(total);
       }
-
+       /* deal with conflicting activity */
       frameworks.toggleAttribute('disabled');
-      $('[name="js-frameworks"]').parent().toggleClass('js-grey-out');
+      $(frameworks).parent().toggleClass('js-grey-out');
       break;
-
 
     case 'js-libs':
       if ( $(event.target).prop('checked') === true ) {
         total += 100;
-        $('.activities .js-total').text(total);
+        $totalSpan.text(total);
       } else {
         total -= 100;
-        $('.activities .js-total').text(total);
+        $totalSpan.text(total);
       }
-
+      /* deal with conflicting activity */
       node.toggleAttribute('disabled');
-      $('[name="node"]').parent().toggleClass('js-grey-out');
+      $(node).parent().toggleClass('js-grey-out');
       break;
-
 
     case 'node':
       if ( $(event.target).prop('checked') === true ) {
         total += 100;
-        $('.activities .js-total').text(total);
+        $totalSpan.text(total);
       } else {
         total -= 100;
-        $('.activities .js-total').text(total);
+        $totalSpan.text(total);
       }
-
+      /* deal with conflicting activity */
       libs.toggleAttribute('disabled');
-      $('[name="js-libs"]').parent().toggleClass('js-grey-out');
+      $(libs).parent().toggleClass('js-grey-out');
       break; 
   }
 
-  // hide the running total is user deselects all activity options
+  // hide the total message if user deselects all activity options
   if ( total === 0 ) $totalMessage.hide();
-  
-
 });
 
 
