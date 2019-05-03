@@ -166,20 +166,10 @@ $('.js-error-message').hide();
 /* prevent chrome's automatic form validation */
 $('form').attr('novalidate', 'true');
 
+
 /* accept an input field, a regex and a message and validate the field, 
-providing feedback by apply error style and showing error span with error message inserted */
-function validateAndFeedback($field, regex, message) {
-  const value = $field.val();
-  if ( ! regex.test(value) ) {
-    $field.addClass('js-error');
-    $field.prev().show().text(message); // add error message text to span element already dynamically inserted
-    event.preventDefault();
-  } else {
-    $field.removeClass('js-error');
-    $field.prev().hide().text('');      
-  }
-}
-/* similar to validateAndFeedback but with extra conditional message */
+providing conditional feedback by apply error style and 
+showing error span with error message inserted */
 function validateAndConditionalFeedback($field, regex1, message1, message2, regex2, message3) {
   const value = $field.val();
   const test1 = regex1.test(value);
@@ -209,7 +199,7 @@ function validateAndConditionalFeedback($field, regex1, message1, message2, rege
     $field.prev().hide().text('');
   }
 }
-/* Function to call validateAndConditionalFeedback in response to 
+/* Add realtime encasing to validateAndConditionalFeedback(), responding to 
 realtime input events on the field element passed in */
 function validateInRealtime($field, regex, message1, message2, regex2, message3) {
   $field.on('input', function() {
@@ -217,7 +207,7 @@ function validateInRealtime($field, regex, message1, message2, regex2, message3)
   });
 } 
 /* validate the name, email, and credit card fields in realtime */
-validateInRealtime(  $('#name'),  /\w+/,  'Please enter a name', 'Please enter a name'  );
+validateInRealtime(  $('#name'),  /\w+/,  'Please enter a name', 'Please enter a name'  ); // intentional repetition of string argument
 validateInRealtime(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address', 'Please enter a valid email address'  );
 validateInRealtime(  $('#cc-num'),  /^\d{13,16}$/, 'Please enter a credit card number', 'Please enter a number between 13 and 16 digits long', /\s+/, 'No spaces please'  );
 validateInRealtime(  $('#zip'),  /^\d{5}$/, 'Please enter a zip', 'Enter a number 5 digits long', /\s+/, 'No spaces please'  );
@@ -252,7 +242,7 @@ $('.activities').on('input', function(event) {
 (e.g. user clicks the register button)  */
 $('form').on('submit', function(event) {
   /* Name, email and activities validation */  
-  validateAndFeedback(  $('#name'),  /\w+/,  'Please enter a name'  );
+  validateAndConditionalFeedback(  $('#name'),  /\w+/,  'Please enter a name', 'Please enter a name'  ); // intentional repetition of string argument
   validateAndConditionalFeedback(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address', 'Please enter a valid email address'  );
   validateActivities();
   /* Credit Card details validation - only if payment option selected is credit-card */  
