@@ -5,7 +5,7 @@ With this project I learnt jQuery and Regular Expressions and applied them to bu
 Validation is applied in realtime as user input events are registered.<br><br>
 Error messages displayed update in realtime conditionally according to the error (e.g. field is blank, or entry isn't of the write length).<br><br>
 This was all coded from scratch: no in-built or automatic validation was used, and no pre-written regexs were used.
-
+<br><br>
 ### What unobtrusive interactivity has been included?
 * Name field focuses on page load
 * Job role "Other" text input field is hidden (until selected)
@@ -13,7 +13,7 @@ This was all coded from scratch: no in-built or automatic validation was used, a
 * Activities that conflict with a selection are disabled and greyed-out
 * A running total cost of activities selected appears and updates in realtime
 * Credit card payment option is dynamically selected by default and other options info is hidden
-
+<br><br>
 ### What conditional and realtime validation has been applied?
 * Validation is applied in both realtime and on final form submit to name, email, activities and credit card details
   * Realtime error indicators (border colour) are applied as user makes changes to the input value (e.g. while typing)
@@ -22,7 +22,7 @@ This was all coded from scratch: no in-built or automatic validation was used, a
       * 'Please enter a credit card number / zip code / cvv'
       * 'Please enter a number x digits long'
       * 'No spaces please'
-
+<br><br>
 
 ## Principles applied
 * Progressive Enhancement
