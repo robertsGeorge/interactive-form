@@ -1,47 +1,30 @@
-
 /***
-Mostly jQuery + occasional vanilla JavaScript
-
+jQuery used extensively throughout
 ***/ 
-
 
 "use strict";
 
-// put focus on the name text input field on page load
+// focus the name text input field on page load
 $(function() {
   $('#name').focus();
 });
-
-
 // hide the 'other' job role text area
 $('#other-title').hide();
-
-
-
-// if 'other' role selected, show #other-title text input, else hide 
+// if 'other' role selected, show #other-title text input 
 $('#title').on('change', function() {
   if ( $('#title').val() === 'other' ) {
     $('#other-title').show();
   } else $('#other-title').hide();
 });
 
-
 /* ===========================================
-T-shirts section: show only colors that correspond to selected Design theme 
+T-shirts section:  
 =============================*/
-
-// for exceeds expectations grade, hide the colors menu until a t-shirt theme is selected
+// hide the colors menu until a t-shirt theme is selected
 $('#colors-container').hide();
-
-
-// listen for change on #design
-  // if value = Select Theme, hide color menu
-  // if value = js puns, hide I love JS options
-  // else if value = I love JS, hide JS puns options
-$('#design').on('change', function() {
-  
-  switch (  $('#design').val()  ) {
-    
+// show only colors that correspond to selected Design theme
+$('#design').on('change', function() { 
+  switch ( $('#design').val() ) {
     case "Select Theme":
       $('#colors-container').hide();
       break;
@@ -68,74 +51,71 @@ $('#design').on('change', function() {
   } 
 });
 
-
-
 /* ===========================================
 Activities section: 
 =============================*/
-
-// dynamically create running total display element:
-let amount = 0;
+/* dynamically create & append total cost message
+span with class 'js-total' to hold the dynamically updated number value */
 const $totalMessage = $(`<p>Total: $<span class="js-total"></span></p>`);
 $('.activities').append($totalMessage);
 $totalMessage.hide();
+let total = 0;
 
-
-//disable conflicting activities' checkboxes and line-through their label's textcontent:
-    // Frameworks conflicts w/ Express
-    // Libs WS conflicts w/ Node
+/* Show and update the total as checkboxes are checked/unchecked.
+    Also where activity time conflicts exist, 
+    grey-out the conflicting option and disable its checkbox */
 $('.activities').change(function(event) {
-  // vanilla JS selection used so can use toggleAttribute() method (not available on jQuery objects)
+  /* vanilla JS selection used to create the following 4 bindings 
+    so can use toggleAttribute() method (not available on jQuery objects) */
   const frameworks = document.querySelector('[name="js-frameworks"]');
   const libs = document.querySelector('[name="js-libs"]');
   const express = document.querySelector('[name="express"]');
   const node = document.querySelector('[name="node"]');
 
   $totalMessage.show();
-
   
-  switch (  $(event.target).attr('name')  ) {
+  switch ( $(event.target).attr('name') ) {
     
     case 'all':
       if ( $(event.target).prop('checked') === true ) {
-        amount += 200;
-        $('.activities .js-total').text(amount);
+        total += 200;
+        $('.activities .js-total').text(total);
       } else {
-        amount -= 200;
-        $('.activities .js-total').text(amount);
+        total -= 200;
+        $('.activities .js-total').text(total);
       }
       break;
 
 
     case 'build-tools':
       if ( $(event.target).prop('checked') === true ) {
-        amount += 100;
-        $('.activities .js-total').text(amount);
+        total += 100;
+        $('.activities .js-total').text(total);
       } else {
-        amount -= 100;
-        $('.activities .js-total').text(amount);
+        total -= 100;
+        $('.activities .js-total').text(total);
       }
       break;
     
 
     case 'npm':
       if ( $(event.target).prop('checked') === true ) {
-        amount += 100;
-        $('.activities .js-total').text(amount);
+        total += 100;
+        $('.activities .js-total').text(total);
       } else {
-        amount -= 100;
-        $('.activities .js-total').text(amount);
+        total -= 100;
+        $('.activities .js-total').text(total);
       }
       break;
 
 
     case 'js-frameworks':
       if ( $(event.target).prop('checked') === true ) {
-        amount += 100;
-        $('.activities .js-total').text(`${amount}`);
+        total += 100;
+        $('.activities .js-total').text(`${total}`);
       } else {
-        amount -= 100;
-        $('.activities .js-total').text(`${amount}`);
+        total -= 100;
+        $('.activities .js-total').text(`${total}`);
       }
       // disable conflicting activity
       express.toggleAttribute('disabled');
@@ -145,11 +125,11 @@ $('.activities').change(function(event) {
 
     case 'express':
       if ( $(event.target).prop('checked') === true ) {
-        amount += 100;
-        $('.activities .js-total').text(amount);
+        total += 100;
+        $('.activities .js-total').text(total);
       } else {
-        amount -= 100;
-        $('.activities .js-total').text(amount);
+        total -= 100;
+        $('.activities .js-total').text(total);
       }
 
       frameworks.toggleAttribute('disabled');
@@ -159,11 +139,11 @@ $('.activities').change(function(event) {
 
     case 'js-libs':
       if ( $(event.target).prop('checked') === true ) {
-        amount += 100;
-        $('.activities .js-total').text(amount);
+        total += 100;
+        $('.activities .js-total').text(total);
       } else {
-        amount -= 100;
-        $('.activities .js-total').text(amount);
+        total -= 100;
+        $('.activities .js-total').text(total);
       }
 
       node.toggleAttribute('disabled');
@@ -173,11 +153,11 @@ $('.activities').change(function(event) {
 
     case 'node':
       if ( $(event.target).prop('checked') === true ) {
-        amount += 100;
-        $('.activities .js-total').text(amount);
+        total += 100;
+        $('.activities .js-total').text(total);
       } else {
-        amount -= 100;
-        $('.activities .js-total').text(amount);
+        total -= 100;
+        $('.activities .js-total').text(total);
       }
 
       libs.toggleAttribute('disabled');
@@ -186,7 +166,7 @@ $('.activities').change(function(event) {
   }
 
   // hide the running total is user deselects all activity options
-  if ( amount === 0 ) $totalMessage.hide();
+  if ( total === 0 ) $totalMessage.hide();
   
 
 });
