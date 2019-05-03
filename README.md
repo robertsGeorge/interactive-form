@@ -18,5 +18,6 @@ This was all coded from scratch: no in-built or automatic validation was used, a
 * Conditional statements, including use of a switch statement
 * CSS cosmetics - font-selection, colours
 * CSS classes to style error indicators - dynamically toggling these using jQuery
+* git / GitHub: full commit history and use of branches to build incremental features, test them then merge back into master
 
 
