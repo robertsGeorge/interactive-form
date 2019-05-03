@@ -173,26 +173,23 @@ showing error span with error message inserted */
 function validateAndConditionalFeedback($field, regex1, message1, message2, regex2, message3) {
   const value = $field.val();
   const test1 = regex1.test(value);
-  if (value.length === 0) {
+  function applyError(message) {
     $field.addClass('js-error');
-    $field.prev().show().text(message1); // add error message text to span element already dynamically inserted
+    $field.prev().show().text(message); // add error message text to span element already dynamically inserted
     event.preventDefault();
+  }
+  if (value.length === 0) { 
+    applyError(message1);
   } else if (!test1) {
     if (regex2) {
       const test2 = regex2.test(value);
       if (test2) {
-        $field.addClass('js-error');
-        $field.prev().show().text(message3);
-        event.preventDefault();
+        applyError(message3);
       } else {
-        $field.addClass('js-error');
-        $field.prev().show().text(message2);
-        event.preventDefault();
+        applyError(message2);
       }
-    } else {
-      $field.addClass('js-error');
-      $field.prev().show().text(message2);
-      event.preventDefault();
+    } else { 
+      applyError(message2);
     }
   } else if (test1) {
     $field.removeClass('js-error');
