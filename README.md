@@ -1,8 +1,27 @@
 # Interactive Form
+
+## About this project
 With this project I learnt jQuery and Regular Expressions and applied them to build dynamic interactivity and validation into a HTML registration form. <br><br>
 Validation is applied in realtime as user input events are registered.<br><br>
 Error messages displayed update in realtime conditionally according to the error (e.g. field is blank, or entry isn't of the write length).<br><br>
 This was all coded from scratch: no in-built or automatic validation was used, and no pre-written regexs were used.
+
+### What unobtrusive interactivity has been included?
+* Name field focuses on page load
+* Job role "Other" text input field is hidden (until selected)
+* T-Shirt colour drop-down is hidden until a theme is selected; plus colour options unrelated to selected theme are hidden
+* Activities that conflict with a selection are disabled and greyed-out
+* A running total cost of activities selected appears and updates in realtime
+* Credit card payment option is dynamically selected by default and other options info is hidden
+
+### What conditional and realtime validation has been applied?
+* Validation is applied in both realtime and on final form submit to name, email, activities and credit card details
+  * Realtime error indicators (border colour) are applied as user makes changes to the input value (e.g. while typing)
+  * Conditional error messages are displayed in realtime, depending on the error, as follows:
+    * Credit card number, zip code and CVV: 
+      * 'Please enter a credit card number / zip code / cvv'
+      * 'Please enter a number x digits long'
+      * 'No spaces please'
 
 
 ## Principles applied
@@ -14,7 +33,7 @@ This was all coded from scratch: no in-built or automatic validation was used, a
 * jQuery (for majority of the code), including use of looping over collections of jQuery objects, and methods such as .each()
 * Regular Expressions: custom writing these to handle name, email and credit card validation
 * DOM selection, traversal, manipulation and insertion
-* Event handling - delegation, progagation, use of the Event Object
+* Event handling - delegation, progagation, use of the Event Object, preventDefault()
 * Conditional statements, including use of a switch statement
 * CSS cosmetics - font-selection, colours
 * CSS classes to style error indicators - dynamically toggling these using jQuery
