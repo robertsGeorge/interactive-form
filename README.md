@@ -15,7 +15,7 @@ This was all coded from scratch: no in-built or automatic validation was used, a
 * Credit card payment option is dynamically selected by default and other options info is hidden
 <br><br>
 ### What conditional and realtime validation has been applied?
-* Validation is applied in both realtime and on final form submit to name, email, activities and credit card details
+* Validation is applied in both realtime and on final form submit to name, email, activities (1 must be selected) and credit card details
   * Realtime error indicators (border colour) are applied as user makes changes to the input value (e.g. while typing)
   * Conditional error messages are displayed in realtime, depending on the error, as follows:
     * Credit card number, zip code and CVV: 
