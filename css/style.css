@@ -5,7 +5,7 @@
 ==================================== */
 
 .js-grey-out {
-	color: lightslategrey;
+	color: #aaa;
 }
 
 
@@ -60,6 +60,10 @@ h1 {
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
 	margin: 0;
 	
+}
+
+p {
+	font-weight: bold;
 }
 
 a {
