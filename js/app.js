@@ -1,3 +1,8 @@
+/* =================================================
+Treehouse Techdegree:
+FullStack JavaScript project 3 - Interactive Form
+===================================================*/
+
 /***
 jQuery used extensively throughout
 ***/ 
