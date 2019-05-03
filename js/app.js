@@ -129,7 +129,6 @@ $('.activities').change(function(event) {
 /* ===========================================
 Payment section: 
 =============================*/
-
 // disable 'select method' option (user should not be able to submit form w/o payment method)
 $('[value="select_method"]').attr('disabled', true);
 // select credit card method by default on page load
@@ -137,9 +136,8 @@ $('#payment').val('credit-card');
 // hide the paypal and bitcoin details on page load
 $('#paypal, #bitcoin').hide();
 
-
-// can't listen on each option element because there is no event to listen for?
-// use event delegation to respond to events on option child elements
+/* Listen on the parent <select> element for changes to the option selected;
+show the selected option and hide the others */
 $('#payment').change(function() {
   if ( $('#payment').val() === 'credit-card' ) {
     $('#credit-card').show();
@@ -151,17 +149,16 @@ $('#payment').change(function() {
     $('#bitcoin').show();
     $('#credit-card, #paypal').hide();
   }
-
 });
-
 
 /* ===========================================
 Validation
 ============================= */
-
-/* insert a span (error message placeholder) before each input (jQuery auto-loops over collection)
-except if there is no prev() sibling before the input (e.g. with the activity checkboxes) */
+/* insert a span (error message placeholder) with class js-error-message
+ before each input (jQuery auto-loops over input collection) that has a previous sibling */
 $('input').prev().after(`<span class="js-error-message"></span>`);
+/* insert a span (error message placeholder) with class js-error-message 
+after the activities section <legend> element */
 $('.activities legend').after(`<span class="js-error-message"></span>`);
 /* Hide all the spans that were just inserted */
 $('.js-error-message').hide(); 
@@ -169,7 +166,8 @@ $('.js-error-message').hide();
 /* prevent chrome's automatic form validation */
 $('form').attr('novalidate', 'true');
 
-
+/* accept an input field, a regex and a message and validate the field, 
+providing feedback by apply error style and showing error span with error message inserted */
 function validateAndFeedback($field, regex, message) {
   const value = $field.val();
   if ( ! regex.test(value) ) {
@@ -181,7 +179,7 @@ function validateAndFeedback($field, regex, message) {
     $field.prev().hide().text('');      
   }
 }
-
+/* similar to validateAndFeedback but with extra conditional message */
 function validateAndConditionalFeedback($field, regex, message1, message2) {
   const value = $field.val();
   const test = regex.test(value);
@@ -198,60 +196,58 @@ function validateAndConditionalFeedback($field, regex, message1, message2) {
     $field.prev().hide().text('');
   }
 }
-
-/* === Realtime input event handlers (outside of, seperate from and additional to the main form submit event handler below) === */
+/* Function to call validateAndConditionalFeedback in response to 
+realtime input events on the field element passed in */
 function validateInRealtime($field, regex, message1, message2) {
   $field.on('input', function() {
     validateAndConditionalFeedback($field, regex, message1, message2);
   });
 } 
-
-/* this function must be called inside an event handler which provides the event object */
-function validateActivities() {
-  let activitiesSelected = 0;
-  /* loop over each activity checkbox and increment activitiesSelected if checked */
-  $('.activities input').each(function() {
-    if ( $(this).prop('checked') === true ) {
-      activitiesSelected += 1;
-    }
-  });
-  /* if no activities selected, show error message */
-  if (activitiesSelected === 0) {
-    $('.activities .js-error-message').show().text('Please select at least one activity');
-    event.preventDefault();
-  } else {
-    $('.activities .js-error-message').hide().text('');
-  }
-}
-
+/* validate the name, email, and credit card fields in realtime */
 validateInRealtime(  $('#name'),  /\w+/,  'Please enter a name', 'Please enter a name'  );
 validateInRealtime(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address', 'Please enter a valid email address'  );
 validateInRealtime(  $('#cc-num'),  /^\d{13,16}$/, 'Please enter a credit card number', 'Please enter a number between 13 and 16 digits long'  );
 validateInRealtime(  $('#zip'),  /^\d{5}$/, 'Please enter a zip', 'Enter a number 5 digits long'  );
 validateInRealtime(  $('#cvv'),  /^\d{3}$/, 'Please enter a cvv', 'Enter a number 3 digits long'  );
 
+/* Function to validate that at least one activity has been checked.
+this function must be called inside an event handler which provides the event object */
+function validateActivities() {
+  let activitiesChecked = 0;
+  /* loop over each input checkbox and increment/decrement activitiesChecked if checked/unchecked */
+  $('.activities input').each(function() {
+    if ( $(this).prop('checked') === true ) {
+      activitiesChecked += 1;
+    }
+  });
+  /* if no activities checked, show error message */
+  if (activitiesChecked === 0) {
+    $('.activities .js-error-message').show().text('Please select at least one activity');
+    event.preventDefault();
+  } else {
+    $('.activities .js-error-message').hide().text('');
+  }
+}
 /* run validateActivities() in realtime, 
-in response to input on the activity fieldset's checkbox input elements */
+in response to input events on the checkbox children of fieldset element with class 'activities'
+(possible because events on the children bubble up to the fieldset element) */
 $('.activities').on('input', function(event) {
   validateActivities();
 });
 
-/* ================== Overall form submit event handler ========================== */
+/* also run validate when an overall form submit event is triggered 
+(e.g. user clicks the register button)  */
 $('form').on('submit', function(event) {
-  
-  /* ==== Name and email field validation ==== */  
+  /* Name, email and activities validation */  
   validateAndFeedback(  $('#name'),  /\w+/,  'Please enter a name'  );
   validateAndConditionalFeedback(  $('#mail'), /^[^@]+@[^@.]+\.[a-z]+$/i, 'Please enter an email address', 'Please enter a valid email address'  );
-
-  /* ==== Credit Card details validation ==== */  
+  validateActivities();
+  /* Credit Card details validation - only if payment option selected is credit-card */  
   if ( $('#payment').val() === 'credit-card' ) {
     validateAndConditionalFeedback(  $('#cc-num'),  /^\d{13,16}$/, 'Please enter a credit card number', 'Please enter a number between 13 and 16 digits long'  );
     validateAndConditionalFeedback(  $('#zip'),  /^\d{5}$/, 'Please enter a zip', 'Enter a number 5 digits long'  );
     validateAndConditionalFeedback(  $('#cvv'),  /^\d{3}$/, 'Please enter a cvv', 'Enter a number 3 digits long'  );
   }
-
-  /* ==== Activities validation ==== */  
-  validateActivities();
 });
 
 
