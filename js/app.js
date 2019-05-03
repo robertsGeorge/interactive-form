@@ -68,95 +68,58 @@ const libs = document.querySelector('[name="js-libs"]');
 const express = document.querySelector('[name="express"]');
 const node = document.querySelector('[name="node"]');
 
-/* Show and update the total as checkboxes are checked/unchecked.
-    Also where activity time conflicts exist, 
-    grey-out the conflicting option and disable its checkbox */
+/* increment amount if checkbox checked, and vice-versa */
+function updateTotal(amount) {
+  if ( $(event.target).prop('checked') === true ) {
+    total += amount;
+    $totalSpan.text(total);
+  } else {
+    total -= amount;
+    $totalSpan.text(total);
+  }
+}
+
+function handleConflict(activity) {
+  activity.toggleAttribute('disabled');
+  $(activity).parent().toggleClass('js-grey-out'); // switch to jQuery to use its toggleClass method
+}
+
+/* listen for changes to checkboxes and show/update the total; 
+    also handle conflicting activities by greying-out & disabling */
 $('.activities').change(function(event) {
   $totalMessage.show();
 
   switch ( $(event.target).attr('name') ) {
-    
     case 'all':
-      if ( $(event.target).prop('checked') === true ) {
-        total += 200;
-        $totalSpan.text(total);
-      } else {
-        total -= 200;
-        $totalSpan.text(total);
-      }
+      updateTotal(200);
       break;
 
     case 'build-tools':
-      if ( $(event.target).prop('checked') === true ) {
-        total += 100;
-        $totalSpan.text(total);
-      } else {
-        total -= 100;
-        $totalSpan.text(total);
-      }
+      updateTotal(100);
       break;
     
     case 'npm':
-      if ( $(event.target).prop('checked') === true ) {
-        total += 100;
-        $totalSpan.text(total);
-      } else {
-        total -= 100;
-        $totalSpan.text(total);
-      }
+      updateTotal(100);
       break;
 
     case 'js-frameworks':
-      if ( $(event.target).prop('checked') === true ) {
-        total += 100;
-        $totalSpan.text(`${total}`);
-      } else {
-        total -= 100;
-        $totalSpan.text(`${total}`);
-      }
-      /* deal with conflicting activity */
-      express.toggleAttribute('disabled');
-      // switch to jQuery to use its toggleClass method
-      $(express).parent().toggleClass('js-grey-out');
+      updateTotal(100);
+      handleConflict(express);
       break; 
     
     case 'express':
-      if ( $(event.target).prop('checked') === true ) {
-        total += 100;
-        $totalSpan.text(total);
-      } else {
-        total -= 100;
-        $totalSpan.text(total);
-      }
-       /* deal with conflicting activity */
-      frameworks.toggleAttribute('disabled');
-      $(frameworks).parent().toggleClass('js-grey-out');
+      updateTotal(100);
+      handleConflict(frameworks);
       break;
 
     case 'js-libs':
-      if ( $(event.target).prop('checked') === true ) {
-        total += 100;
-        $totalSpan.text(total);
-      } else {
-        total -= 100;
-        $totalSpan.text(total);
-      }
-      /* deal with conflicting activity */
-      node.toggleAttribute('disabled');
-      $(node).parent().toggleClass('js-grey-out');
+      updateTotal(100);
+      handleConflict(node);
       break;
 
     case 'node':
-      if ( $(event.target).prop('checked') === true ) {
-        total += 100;
-        $totalSpan.text(total);
-      } else {
-        total -= 100;
-        $totalSpan.text(total);
-      }
-      /* deal with conflicting activity */
-      libs.toggleAttribute('disabled');
-      $(libs).parent().toggleClass('js-grey-out');
+      updateTotal(100);
+      handleConflict(libs);
       break; 
   }
 
