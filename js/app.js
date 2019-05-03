@@ -78,18 +78,17 @@ function updateTotal(amount) {
     $totalSpan.text(total);
   }
 }
-
+/* disable conflicting activity checkbox and grey-out its parent label */
 function handleConflict(activity) {
   activity.toggleAttribute('disabled');
   $(activity).parent().toggleClass('js-grey-out'); // switch to jQuery to use its toggleClass method
 }
 
-/* listen for changes to checkboxes and show/update the total; 
-    also handle conflicting activities by greying-out & disabling */
+/* use event delegation to listen on the parent for changes to checkboxes
+ and show/update the total, then handle conflicting activities */
 $('.activities').change(function(event) {
   $totalMessage.show();
-
-  switch ( $(event.target).attr('name') ) {
+  switch ( $(event.target).attr('name') ) { // match the checkbox that triggered the event by its name attribute value 
     case 'all':
       updateTotal(200);
       break;
@@ -122,7 +121,6 @@ $('.activities').change(function(event) {
       handleConflict(libs);
       break; 
   }
-
   // hide the total message if user deselects all activity options
   if ( total === 0 ) $totalMessage.hide();
 });
